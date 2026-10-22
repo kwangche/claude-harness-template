@@ -1,51 +1,11 @@
 ---
 name: plan
-description: 사용자 요청을 분석해 docs/PLAN.md 를 작성하는 계획 스킬. /run 의 1단계에서 자동으로 쓰이며, 사용자가 "계획만 세워줘", "설계해줘", "어떻게 만들지 정리해줘"라고 할 때도 단독으로 사용한다.
+description: Create or revise a bounded plan without implicitly implementing the request.
 ---
-
-# /plan — 계획 수립
-
-오케스트레이터가 직접 수행한다 (이 단계는 위임하지 않는다. 가장 깊은 사고가 필요한 지점이다).
-
-## 절차
-1. 요청을 한 문장으로 재진술한다. 사용자가 진짜 원하는 결과물이 무엇인지.
-2. 기존 코드베이스가 있으면 구조를 파악한다 (디렉토리 트리, 주요 진입점, 테스트 유무). 큰 저장소면 builder 에게 "구조 요약" 을 위임한다.
-3. 아키텍처를 결정한다. 선택지가 있으면 이유와 함께 하나를 고른다.
-4. 작업을 태스크로 분해한다. 각 태스크는:
-   - builder 한 명이 한 번의 호출로 끝낼 수 있는 크기 (보통 1~3 파일, 200줄 이하 변경)
-   - 명확한 완료 조건
-   - 의존성 표시
-5. 마일스톤으로 묶는다. 각 마일스톤은 독립적으로 테스트 가능해야 한다.
-6. `docs/PLAN.md` 에 아래 템플릿으로 쓴다.
-7. CLAUDE.md 의 "프로젝트별 설정" 섹션을 채운다.
-
-## docs/PLAN.md 템플릿
-```markdown
-# PLAN: <프로젝트명>
-
-## 요청
-<원문 요약>
-
-## 목표
-<완료 시 사용자가 얻는 것, 1~3줄>
-
-## 가정
-- <불명확했지만 이렇게 가정함>
-
-## 아키텍처
-<기술 선택, 디렉토리 구조, 핵심 흐름. 다이어그램 대신 목록으로>
-
-## 마일스톤 & 태스크
-
-### M1: <이름> — 완료 조건: <테스트 가능한 조건>
-- [ ] #1 <제목> | 파일: <경로> | 의존: 없음
-- [ ] #2 <제목> | 파일: <경로> | 의존: #1
-
-### M2: ...
-
-## 범위 밖
-- <일부러 안 하는 것>
-
-## 위험
-- <실패 가능 지점과 대비책>
-```
+Read AGENTS.md and docs/WORKFLOW.md. For a plan-only request, provide the plan and
+stop; do not initialize implementation or require fabricated test receipts. For
+implementation, write docs/PLAN.md with goal, acceptance criteria, assumptions,
+scope exclusions, risks, task IDs, dependencies, file ownership and verification.
+Choose light/full mode based on risk and coupling rather than a fixed line limit.
+Full mode requires a recorded PASS plan review before PLANNED; exhausted reviews
+become STUCK. Do not change requirements just to make a failing implementation pass.

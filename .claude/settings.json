@@ -1,53 +1,11 @@
 {
   "permissions": {
-    "allow": [
-      "Read",
-      "Write",
-      "Edit",
-      "Glob",
-      "Grep",
-      "Bash(git status*)",
-      "Bash(git diff*)",
-      "Bash(git log*)",
-      "Bash(git add*)",
-      "Bash(git commit*)",
-      "Bash(npm test*)",
-      "Bash(npm run*)",
-      "Bash(pytest*)",
-      "Bash(python -m pytest*)",
-      "Bash(dotnet test*)",
-      "Bash(go test*)",
-      "Bash(cargo test*)"
-    ],
-    "deny": [
-      "Bash(rm -rf*)",
-      "Bash(git push --force*)",
-      "Read(.env*)"
-    ]
+    "allow": ["Read", "Glob", "Grep", "Bash(git status *)", "Bash(git diff *)", "Bash(git log *)"],
+    "deny": ["Read(./**/.env)", "Read(./**/.env.*)", "Read(./**/*.pem)", "Read(./**/*.key)", "Read(./**/.git/**)", "Bash(git push --force *)"]
   },
   "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash|Read|Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python .claude/hooks/pre_bash_guard.py",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python .claude/hooks/stop_gate.py",
-            "timeout": 30
-          }
-        ]
-      }
-    ]
+    "SessionStart": [{"matcher": "startup|resume|clear|compact", "hooks": [{"type": "command", "command": "python \"${CLAUDE_PROJECT_DIR}/.harness/cli.py\" hook start", "timeout": 30}]}],
+    "PreToolUse": [{"matcher": "Bash|PowerShell|Read|Write|Edit|MultiEdit|Glob|Grep", "hooks": [{"type": "command", "command": "python \"${CLAUDE_PROJECT_DIR}/.harness/cli.py\" hook guard", "timeout": 30}]}],
+    "Stop": [{"hooks": [{"type": "command", "command": "python \"${CLAUDE_PROJECT_DIR}/.harness/cli.py\" hook stop", "timeout": 30}]}]
   }
 }
