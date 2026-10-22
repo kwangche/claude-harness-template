@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "observed_at": "REPLACE_WITH_CURRENT_ISO_8601_UTC_TIME",
+  "source": "REPLACE_WITH_RUNTIME_MODEL_PICKER_OR_SUPPORTED_CATALOG_COMMAND",
+  "models": [
+    {"runtime": "claude", "id": "REPLACE_WITH_AVAILABLE_MODEL_ID", "available": false, "billing": "subscription", "supports_tools": true, "capability_rank": 0, "rank_reason": "Replace with documented reasoning/coding capability or your evaluation"},
+    {"runtime": "codex", "id": "REPLACE_WITH_AVAILABLE_MODEL_ID", "available": false, "billing": "subscription", "supports_tools": true, "capability_rank": 0, "rank_reason": "Replace with documented reasoning/coding capability or your evaluation"},
+    {"runtime": "gemini", "id": "REPLACE_WITH_AVAILABLE_MODEL_ID", "available": false, "billing": "subscription", "supports_tools": true, "capability_rank": 0, "rank_reason": "Replace with documented reasoning/coding capability or your evaluation"}
+  ]
+}

@@ -1,0 +1,4 @@
+# Model deliberately omitted: select the verified subscription commander at launch.
+# Current Codex custom-agent format; see docs/ADAPTERS.md for older hosts.
+[agents]
+max_concurrent_threads_per_session = 2
